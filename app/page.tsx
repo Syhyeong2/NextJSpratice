@@ -1,23 +1,32 @@
-import Billions from "@/components/billions";
+import Books from "./components/books";
 
-async function getBillions() {
-  const response = await fetch(`https://billions-api.nomadcoders.workers.dev/`);
+async function getBooks() {
+  const response = await fetch(
+    `https://books-api.nomadcoders.workers.dev/lists`
+  );
   return response.json();
 }
 
+interface IBook {
+  list_name: string;
+  display_name: string;
+  list_name_encoded: string;
+  oldest_published_date: string;
+  newest_published_date: string;
+  updated: string;
+}
+
 export default async function Home() {
-  const billions = await getBillions();
+  const results = await getBooks();
+  const books = results.results;
 
   return (
-    <div className="grid grid-cols-4 gap-4 my-16 mx-96">
-      {billions.map((billion: any) => (
-        <Billions
-          key={billion.id}
-          id={billion.id}
-          name={billion.name}
-          squareImage={billion.squareImage}
-          netWorth={billion.netWorth}
-          industries={billion.industries}
+    <div className="flex justify-center items-center w-screen gap-3 flex-wrap p-24">
+      {books.map((book: IBook, index: string) => (
+        <Books
+          key={index}
+          list_name={book.list_name}
+          list_name_encoded={book.list_name_encoded}
         />
       ))}
     </div>
