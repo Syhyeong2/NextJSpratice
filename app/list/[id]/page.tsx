@@ -23,7 +23,10 @@ export default async function BookDetails({ params: { id } }: IParams) {
   return (
     <div className="flex flex-wrap justify-center items-center gap-5 p-32">
       {bestBooks.map((book: IbestBook, index: number) => (
-        <div className="w-60 h-96 border-2 flex flex-col justify-center items-center gap-5">
+        <div
+          key={index}
+          className="w-60 h-96 border-2 flex flex-col justify-center items-center gap-5"
+        >
           <img src={`${book.book_image}`} className="w-60 h-60 " />
           <div className="text-gray-50 ">{book.title}</div>
           <div className="text-gray-50 ">{book.author}</div>
